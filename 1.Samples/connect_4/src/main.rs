@@ -16,15 +16,16 @@ fn connect_4() {
     let mut board = [[' '; 7]; 6];
     let mut player = 'X';
 
+    display_board(&board);
     loop {
         let mut choice = String::new();
-        display_board(&board);
+
         println!("Player {}, choose your column : ", player);
 
         io::stdin().read_line(&mut choice)
             .expect("Impossible to read the line");
 
-        let choice: i32 = match choice.trim().parse() {
+        let choice: usize = match choice.trim().parse() {
             Ok(num) => num,
             Err(e) => {
                 println!("Error : {}", e);
@@ -32,7 +33,8 @@ fn connect_4() {
             }
         };
 
-        if add_piece(&mut board, choice) {
+        if add_piece(&mut board, choice - 1, &player) {
+            display_board(&board);
             if game_ended(&board) {
                 break;
             } else {
@@ -43,6 +45,7 @@ fn connect_4() {
             continue;
         }
     }
+    println!("Congrats, player {} win !", &player);
 }
 
 fn display_board(_board: &[[char; 7]; 6]) {
@@ -59,13 +62,23 @@ fn display_board(_board: &[[char; 7]; 6]) {
 }
 
 //TODO : implement this
-fn add_piece(_board: &mut [[char; 7]; 6], _choice: i32) -> bool {
-    false
+fn add_piece(_board: &mut [[char; 7]; 6], _choice: usize, _player: &char) -> bool {
+    if _choice > 0 && _choice < 8 && _board[0][_choice] == ' ' {
+        for i in (0..6).rev() {
+            if _board[i][_choice] == ' ' {
+                _board[i][_choice] = *_player;
+                break;
+            }
+        }
+        true
+    } else {
+        false
+    }
 }
 
 //TODO : implement this
 fn game_ended(_board: &[[char; 7]; 6]) -> bool {
-    true
+    false
 }
 
 fn change_player(_player: &mut char) {
