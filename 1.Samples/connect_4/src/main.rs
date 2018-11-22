@@ -97,7 +97,7 @@ fn game_ended(_board: &[[char; 7]; 6], _player: &char) -> u32 {
 }
 
 fn vertical_win(_board: &[[char; 7]; 6], _player: &char) -> bool {
-    for i in 0..5 {
+    for i in 0..7 {
         let mut count = 0;
         for j in 0..6 {
             count = if _board[j][i] == *_player { count + 1 } else { 0 };
@@ -112,7 +112,7 @@ fn vertical_win(_board: &[[char; 7]; 6], _player: &char) -> bool {
 fn horizontal_win(_board: &[[char; 7]; 6], _player: &char) -> bool {
     for i in 0..6 {
         let mut count = 0;
-        for j in 0..5 {
+        for j in 0..7 {
             count = if _board[i][j] == *_player { count + 1 } else { 0 };
             if count == 4 {
                 return true;
