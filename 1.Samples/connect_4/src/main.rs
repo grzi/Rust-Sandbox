@@ -78,9 +78,8 @@ fn add_piece(_board: &mut [[char; 7]; 6], _choice: usize, _player: &char) -> boo
             }
         }
         true
-    } else {
-        false
     }
+    false
 }
 
 fn game_ended(_board: &[[char; 7]; 6], _player: &char) -> u32 {
