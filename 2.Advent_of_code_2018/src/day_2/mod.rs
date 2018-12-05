@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 pub fn execute(_input: String)-> (u32, String){
     let lines = _input.lines().map(|e| e.trim()).collect::<Vec<&str>>();
@@ -27,23 +26,23 @@ fn find_exaclty_n_repetition(_input:&str, _n: u32 ) -> u32{
 }
 
 fn find_prototyp_fabric(lines: &Vec<&str>) -> String{
-    let mut oldLines = Vec::new();
+    let mut old_lines = Vec::new();
     for line in lines {
-        let result = get_one_digit_correspondance(&oldLines, &line);
+        let result = get_one_digit_correspondance(&old_lines, &line);
         match result {
             Some(v) => return v,
-            None =>  oldLines.push(line)
+            None =>  old_lines.push(line)
         }
     }
     String::new()
 }
 
-fn get_one_digit_correspondance(_oldLines : &Vec<&str>, _line : &str) -> Option<String> {
-    let mut charsLine = _line.chars().collect::<Vec<char>>();
-    for line in _oldLines{
+fn get_one_digit_correspondance(_old_lines : &Vec<&str>, _line : &str) -> Option<String> {
+    let mut chars_line = _line.chars().collect::<Vec<char>>();
+    for line in _old_lines{
         let mut correspondance = String::new();
         for (i,charac) in line.chars().enumerate(){
-            if *charsLine.get(i).unwrap() == charac{
+            if *chars_line.get(i).unwrap() == charac{
                 correspondance += charac.to_string().as_str();
             }
         }
@@ -61,18 +60,18 @@ mod tests {
 
     #[test]
     fn find_exactly_2() {
-        assert_eq!(false,find_exaclty_n_repetition("abcdef", 2));
-        assert_eq!(true,find_exaclty_n_repetition("abbcdef", 2));
-        assert_eq!(false,find_exaclty_n_repetition("abbbcdef", 2));
-        assert_eq!(true,find_exaclty_n_repetition("abbccdef", 2));
+        assert_eq!(0,find_exaclty_n_repetition("abcdef", 2));
+        assert_eq!(1,find_exaclty_n_repetition("abbcdef", 2));
+        assert_eq!(0,find_exaclty_n_repetition("abbbcdef", 2));
+        assert_eq!(1,find_exaclty_n_repetition("abbccdef", 2));
     }
 
     #[test]
     fn find_exactly_3() {
-        assert_eq!(false,find_exaclty_n_repetition("abcdef", 3));
-        assert_eq!(false,find_exaclty_n_repetition("abbcdef", 3));
-        assert_eq!(true,find_exaclty_n_repetition("abbbcdef", 3));
-        assert_eq!(false,find_exaclty_n_repetition("abbccdef", 3));
+        assert_eq!(0,find_exaclty_n_repetition("abcdef", 3));
+        assert_eq!(0,find_exaclty_n_repetition("abbcdef", 3));
+        assert_eq!(1,find_exaclty_n_repetition("abbbcdef", 3));
+        assert_eq!(0,find_exaclty_n_repetition("abbccdef", 3));
     }
 
 }
