@@ -1,19 +1,9 @@
-use std::fs::File;
-use std::io::prelude::*;
-use std::env;
+
 use std::collections::HashSet;
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    let result = day_1(&args[1]);
-    println!("{} total", result.0);
-    println!("{} frequencies", result.1);
-}
-
-fn day_1(_path_to_input: &str) -> (i32, i32) {
-    let input = read_input_file(_path_to_input);
+pub fn execute(_input: String) -> (i32, i32) {
     let changes = {
-        let lines = input.lines();
+        let lines = _input.lines();
         let mapped_lines = lines.map(
             |e| {
                 match e.parse::<i32>() {
@@ -28,13 +18,6 @@ fn day_1(_path_to_input: &str) -> (i32, i32) {
         calculate_total(&changes),
         calculate_frequency_repeat(&changes)
     )
-}
-
-fn read_input_file(file: &str) -> String {
-    let mut file = File::open(file).expect("Error");
-    let mut buffer = String::new();
-    file.read_to_string(&mut buffer).expect("Error");
-    buffer
 }
 
 fn calculate_total(_changes: &Vec<i32>) -> i32 {

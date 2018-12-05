@@ -1,5 +1,5 @@
 [package]
-name = "day_1"
+name = "advent_of_code"
 version = "0.1.0"
 authors = ["Jérémy Thulliez <jeremy.thulliez@zenika.com>"]
 
