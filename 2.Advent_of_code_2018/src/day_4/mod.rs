@@ -24,12 +24,6 @@ pub fn execute(_lines: String) -> (u32, u32) {
     (most_slept_guard_x_his_most_slept_minute(&guards_sleeps), most_slept_minute_x_her_most_slept_guard(&guards_sleeps))
 }
 
-fn getGuardId(action: &str) -> u32 {
-    action.split("#").collect::<Vec<&str>>()
-        .get(1).unwrap().split(" ").collect::<Vec<&str>>()
-        .get(0).unwrap().parse().unwrap()
-}
-
 fn update_guards_sleeps(_guards_sleeps: &mut HashMap<u32, HashMap<u32, u32>>, _guard: u32, _start_sleep: &NaiveDateTime, _endSleep: &NaiveDateTime) {
     let currentGuardSleeps = _guards_sleeps.entry(_guard).or_insert(HashMap::new());
     for minute in _start_sleep.minute().._endSleep.minute() {
@@ -39,8 +33,7 @@ fn update_guards_sleeps(_guards_sleeps: &mut HashMap<u32, HashMap<u32, u32>>, _g
 
 fn most_slept_guard_x_his_most_slept_minute(_guards_sleeps: &HashMap<u32, HashMap<u32, u32>>) -> u32 {
     let sum = _guards_sleeps.iter().map(
-        |e|
-            (*e.0, e.1.iter().map(|i| *i.1).collect::<Vec<u32>>().iter().sum())
+        |e| (*e.0, e.1.iter().map(|i| *i.1).collect::<Vec<u32>>().iter().sum())
     ).collect::<Vec<(u32, u32)>>();
     let most_slept_guard = *sum.iter().max_by(|x, y| x.1.cmp(&y.1)).unwrap();
     let most_slept_minute = _guards_sleeps.get(&most_slept_guard.0).unwrap().iter().max_by(|x, y| x.1.cmp(&y.1)).unwrap();
@@ -79,6 +72,12 @@ fn read_line(_line: &str) -> Option<InputLine> {
             },
         }
     )
+}
+
+fn getGuardId(action: &str) -> u32 {
+    action.split("#").collect::<Vec<&str>>()
+        .get(1).unwrap().split(" ").collect::<Vec<&str>>()
+        .get(0).unwrap().parse().unwrap()
 }
 
 #[derive(Eq)]
