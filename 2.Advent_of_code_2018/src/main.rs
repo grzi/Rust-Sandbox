@@ -10,11 +10,12 @@ mod day_2;
 mod day_3;
 mod day_4;
 mod day_5;
+mod day_6;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let day5 = day_5::execute(read_input_file(&args[1]).replace("\n",""));
-    println!("result : {}, {}", day5.0, day5.1);
+    let response = day_6::execute(read_input_file(&args[1]));
+    println!("result : {}, {}", response.0, response.1);
 }
 
 fn read_input_file(file: &str) -> String {
