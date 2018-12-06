@@ -49,9 +49,9 @@ fn read_input(_input: &str) -> Option<Claim> {
 fn updateClaims(_claims: &mut HashMap<String, (Vec<u32>, u32)>, _claim: Claim) {
     for i in _claim.start_w..(_claim.start_w + _claim.width) {
         for j in _claim.start_h..(_claim.start_h + _claim.height) {
-            let mut currentInch = _claims.entry(String::new() + &i.to_string() + ";" + &j.to_string()).or_insert((Vec::new(), 0));
-            currentInch.0.push(_claim.id);
-            currentInch.1 += 1;
+            let mut current_inch = _claims.entry(String::new() + &i.to_string() + ";" + &j.to_string()).or_insert((Vec::new(), 0));
+            current_inch.0.push(_claim.id);
+            current_inch.1 += 1;
         }
     }
 }
@@ -65,8 +65,8 @@ fn get_claimer_with_overlay_nb(_claims: &mut HashMap<String, (Vec<u32>, u32)>) -
                 result.entry(e.0.get(0).unwrap()).or_insert(0);
             } else {
                 e.0.iter().for_each(
-                    |e| {
-                        *result.entry(e).or_insert(0) += 1;
+                    |v| {
+                        *result.entry(v).or_insert(0) += 1;
                     }
                 )
             }
