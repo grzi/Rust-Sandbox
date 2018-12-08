@@ -30,16 +30,8 @@ fn read_next_node(_queue: &mut VecDeque<u32>) -> TreeNode {
 }
 
 fn get_total_metadata(_tree: &TreeNode) -> u32 {
-    let mut res = 0;
-    for metadata in &_tree.metadata {
-        res += metadata
-    }
-
-    for child in &_tree.children {
-        res += get_total_metadata(&child);
-    }
-
-    res
+    _tree.metadata.iter().sum::<u32>()
+        + _tree.children.iter().map(|e| get_total_metadata(&e)).sum::<u32>()
 }
 
 fn get_total_metadata_by_child(_tree: &TreeNode) -> u32 {
@@ -52,9 +44,7 @@ fn get_total_metadata_by_child(_tree: &TreeNode) -> u32 {
             }
         }
     } else {
-        for metadata in &_tree.metadata {
-            res += metadata
-        }
+        res += _tree.metadata.iter().sum::<u32>();
     }
 
     res
