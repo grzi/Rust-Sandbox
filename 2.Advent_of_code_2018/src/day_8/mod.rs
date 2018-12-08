@@ -15,14 +15,14 @@ fn read_input(_input: &str) -> VecDeque<u32> {
 fn read_next_node(_queue: &mut VecDeque<u32>) -> TreeNode {
     let mut this_node = TreeNode::new();
 
-    this_node.child_number = _queue.pop_front().unwrap();
-    this_node.metadata_number = _queue.pop_front().unwrap();
+    let child_number = _queue.pop_front().unwrap();
+    let metadata_number = _queue.pop_front().unwrap();
 
-    for i in 0..this_node.child_number {
+    for i in 0..child_number {
         this_node.children.push(read_next_node(_queue));
     }
 
-    for i in 0..this_node.metadata_number {
+    for i in 0..metadata_number {
         this_node.metadata.push(_queue.pop_front().unwrap());
     }
 
@@ -47,7 +47,7 @@ fn get_total_metadata_by_child(_tree: &TreeNode) -> u32 {
 
     if _tree.children.len() > 0 {
         for metadata in &_tree.metadata {
-            if metadata - 1 < *&_tree.children.len() as u32 { // TODO : Enquêter sur cette synthaxe douteuse
+            if metadata - 1 < (_tree.children.len() as u32) {
                 res += get_total_metadata_by_child(&_tree.children.get((metadata - 1) as usize).unwrap())
             }
         }
@@ -60,25 +60,19 @@ fn get_total_metadata_by_child(_tree: &TreeNode) -> u32 {
     res
 }
 
-
 struct TreeNode {
-    child_number: u32,
     children: Vec<TreeNode>,
-    metadata_number: u32,
     metadata: Vec<u32>,
 }
 
 impl TreeNode {
     fn new() -> TreeNode {
         TreeNode {
-            child_number: 0,
             children: Vec::new(),
-            metadata_number: 0,
             metadata: Vec::new(),
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {
