@@ -20,5 +20,5 @@ fn calculate_high_score(_player_nb: usize, _marble_number: usize ) -> usize{
             ring.push_front(marble);
         }
     }
-    *players_score.iter().max().unwrap()
+    *players_score.iter().max().expect("No value in the player scores")
 }
