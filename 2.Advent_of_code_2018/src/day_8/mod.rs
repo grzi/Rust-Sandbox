@@ -43,14 +43,8 @@ impl TreeNode {
         let child_number = _queue.pop_front().unwrap();
         let metadata_number = _queue.pop_front().unwrap();
 
-        for i in 0..child_number {
-            this_node.children.push(TreeNode::read_next_node(_queue));
-        }
-
-        for i in 0..metadata_number {
-            this_node.metadata.push(_queue.pop_front().unwrap());
-        }
-
+        (0..child_number).for_each(|_| this_node.children.push(TreeNode::read_next_node(_queue)));
+        (0..metadata_number).for_each(|_| this_node.metadata.push(_queue.pop_front().unwrap()));
         this_node
     }
 }

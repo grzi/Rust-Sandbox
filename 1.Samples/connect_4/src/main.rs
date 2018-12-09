@@ -77,7 +77,7 @@ fn add_piece(_board: &mut [[char; 7]; 6], _choice: usize, _player: &char) -> boo
                 break;
             }
         }
-        true
+        return true;
     }
     false
 }
