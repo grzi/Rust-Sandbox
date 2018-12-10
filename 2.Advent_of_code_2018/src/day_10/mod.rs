@@ -2,14 +2,13 @@ use regex::Regex;
 
 pub fn execute(_lines: String) -> (usize) {
     let mut board = _lines.lines().map(|e| read_input(e)).collect::<Vec<(i32, i32, i32, i32)>>();
-    for i in 0..12000{
+    for i in 0..{
         let max = board.iter().max_by(|x,y| x.1.cmp(&y.1)).unwrap().1;
         let min = board.iter().min_by(|x,y| x.1.cmp(&y.1)).unwrap().1;
-        if max - min == 9 { //
+        if max - min == 9 { // La taille du message asciiart est de 10 de haut
             print_board(board.iter().map(|e| (e.0,e.1)).collect::<Vec<(i32,i32)>>());
             return i;
         }
-
         let tmp_board = board.iter().map(|e| (e.0 + e.2, e.1 + e.3, e.2, e.3)).collect::<Vec<(i32, i32, i32, i32)>>();
         board = tmp_board
     };
