@@ -1,5 +1,4 @@
 use std::collections::{BTreeMap, HashMap, HashSet};
-use std::borrow::BorrowMut;
 
 pub fn execute(_lines: String) -> (String, u32) {
     let correspondances_vec = _lines.lines().map(|e| read_input(e)).collect::<Vec<(char, char)>>();
@@ -9,7 +8,6 @@ pub fn execute(_lines: String) -> (String, u32) {
 fn find_order(_correspondances_vec: &Vec<(char, char)>) -> String {
     let mut graph = get_graph(_correspondances_vec);
     let mut result = String::new();
-    // graph.iter().for_each(|e| println!("{} : {:?}", e.0, e.1));
     while graph.len() != 0 {
         let mut tmp = ' ';
         for node in graph.iter() {
@@ -31,7 +29,7 @@ fn find_order(_correspondances_vec: &Vec<(char, char)>) -> String {
 fn find_time_with_workers(_correspondances_vec: &Vec<(char, char)>) -> u32 {
     let mut graph = get_graph(_correspondances_vec);
     let mut result = 0;
-    let mut val = (true, 0, ' ');
+    let val = (true, 0, ' ');
 
     let mut workers = HashMap::new();
     for i in 0..5 {
@@ -39,7 +37,6 @@ fn find_time_with_workers(_correspondances_vec: &Vec<(char, char)>) -> u32 {
     }
 
     while graph.len() != 0 {
-        let mut tmp = ' ';
         for node in graph.iter() {
             if node.1.len() == 0
                 && no_worker_on_this_char(&workers, **node.0)
@@ -47,12 +44,6 @@ fn find_time_with_workers(_correspondances_vec: &Vec<(char, char)>) -> u32 {
                 add_work(&mut workers, **node.0);
             }
         }
-
-        workers.iter().for_each(|e| print!("worker {} on {} for {}    ", e.0, (e.1).2, (e.1).1));
-        println!();
-
-        println!("graph len {}", graph.len());
-
         let tmp = free_next_worker(&mut workers);
         result += tmp.0;
 
@@ -92,10 +83,10 @@ fn free_next_worker(_workers: &mut HashMap<u32, (bool, u32, char)>) -> (u32, cha
             .min_by(|x, y| (x.1).1.cmp(&(y.1).1)).unwrap().0.clone();
 
 
-    let mut duration = 0;
-    let mut char_resetted = ' ';
+    let duration : u32;
+    let char_resetted : char;
     {
-        let mut to_reset = _workers.entry(key).or_insert((true, 0, ' '));
+        let to_reset = _workers.entry(key).or_insert((true, 0, ' '));
         duration = to_reset.1;
         char_resetted = to_reset.2;
         to_reset.0 = true;

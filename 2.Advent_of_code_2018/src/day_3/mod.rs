@@ -16,9 +16,9 @@ pub fn execute(_lines: String) -> (usize, u32) {
 
     lines.iter().for_each(
         |e| {
-            let mut claim = read_input(e);
+            let claim = read_input(e);
             match claim {
-                Some(e) => updateClaims(&mut claims, e),
+                Some(e) => update_claims(&mut claims, e),
                 None => println!("error at {}", e)
             }
         }
@@ -46,7 +46,7 @@ fn read_input(_input: &str) -> Option<Claim> {
     )
 }
 
-fn updateClaims(_claims: &mut HashMap<String, (Vec<u32>, u32)>, _claim: Claim) {
+fn update_claims(_claims: &mut HashMap<String, (Vec<u32>, u32)>, _claim: Claim) {
     for i in _claim.start_w..(_claim.start_w + _claim.width) {
         for j in _claim.start_h..(_claim.start_h + _claim.height) {
             let mut current_inch = _claims.entry(String::new() + &i.to_string() + ";" + &j.to_string()).or_insert((Vec::new(), 0));

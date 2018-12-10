@@ -9,8 +9,7 @@ pub fn execute(_lines: String) -> (usize) {
             print_board(board.iter().map(|e| (e.0,e.1)).collect::<Vec<(i32,i32)>>());
             return i;
         }
-        let tmp_board = board.iter().map(|e| (e.0 + e.2, e.1 + e.3, e.2, e.3)).collect::<Vec<(i32, i32, i32, i32)>>();
-        board = tmp_board
+        board = board.iter().map(|e| (e.0 + e.2, e.1 + e.3, e.2, e.3)).collect::<Vec<(i32, i32, i32, i32)>>();
     };
     (0)
 }

@@ -1,5 +1,4 @@
 use std::collections::VecDeque;
-use std::borrow::BorrowMut;
 
 pub fn execute(_line: String) -> (usize, usize) {
     let tree = TreeNode::read_next_node(&mut read_input(_line.lines().next().unwrap()));

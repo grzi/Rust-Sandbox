@@ -6,10 +6,10 @@ pub fn execute(_input: String)-> (u32, String){
     let mut sum = (0,0);
 
     for line in lines.iter() {
-        let currentLineResult =
+        let current_line_result =
             (find_exaclty_n_repetition(line,2), find_exaclty_n_repetition(line,3));
-        sum.0 += currentLineResult.0;
-        sum.1 += currentLineResult.1;
+        sum.0 += current_line_result.0;
+        sum.1 += current_line_result.1;
     }
 
     (sum.0 * sum.1, find_prototyp_fabric(&lines))
@@ -38,7 +38,7 @@ fn find_prototyp_fabric(lines: &Vec<&str>) -> String{
 }
 
 fn get_one_digit_correspondance(_old_lines : &Vec<&str>, _line : &str) -> Option<String> {
-    let mut chars_line = _line.chars().collect::<Vec<char>>();
+    let chars_line = _line.chars().collect::<Vec<char>>();
     for line in _old_lines{
         let mut correspondance = String::new();
         for (i,charac) in line.chars().enumerate(){

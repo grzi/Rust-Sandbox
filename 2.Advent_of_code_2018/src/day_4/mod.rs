@@ -24,10 +24,10 @@ pub fn execute(_lines: String) -> (u32, u32) {
     (most_slept_guard_x_his_most_slept_minute(&guards_sleeps), most_slept_minute_x_her_most_slept_guard(&guards_sleeps))
 }
 
-fn update_guards_sleeps(_guards_sleeps: &mut HashMap<u32, HashMap<u32, u32>>, _guard: u32, _start_sleep: &NaiveDateTime, _endSleep: &NaiveDateTime) {
-    let currentGuardSleeps = _guards_sleeps.entry(_guard).or_insert(HashMap::new());
-    for minute in _start_sleep.minute().._endSleep.minute() {
-        *currentGuardSleeps.entry(minute).or_insert(0) += 1;
+fn update_guards_sleeps(_guards_sleeps: &mut HashMap<u32, HashMap<u32, u32>>, _guard: u32, _start_sleep: &NaiveDateTime, _end_sleep: &NaiveDateTime) {
+    let current_guard_sleep = _guards_sleeps.entry(_guard).or_insert(HashMap::new());
+    for minute in _start_sleep.minute().._end_sleep.minute() {
+        *current_guard_sleep.entry(minute).or_insert(0) += 1;
     }
 }
 
@@ -44,9 +44,9 @@ fn most_slept_guard_x_his_most_slept_minute(_guards_sleeps: &HashMap<u32, HashMa
 fn most_slept_minute_x_her_most_slept_guard(_guards_sleeps: &HashMap<u32, HashMap<u32, u32>>) -> u32 {
     let mut max: (u32, u32, u32) = (0, 0, 0);
     for line in _guards_sleeps.iter() {
-        for lineM in line.1.iter() {
-            if max.2 < *lineM.1 {
-                max = (*line.0, *lineM.0, *lineM.1);
+        for line_m in line.1.iter() {
+            if max.2 < *line_m.1 {
+                max = (*line.0, *line_m.0, *line_m.1);
             }
         }
     }
@@ -67,14 +67,14 @@ fn read_line(_line: &str) -> Option<InputLine> {
                 match (&groups[4]).trim() {
                     "wakes up" => Action::WakeUp,
                     "falls asleep" => Action::FallsAsleep,
-                    _ => Action::TakeShift(getGuardId(&groups[4]))
+                    _ => Action::TakeShift(get_guard_id(&groups[4]))
                 }
             },
         }
     )
 }
 
-fn getGuardId(action: &str) -> u32 {
+fn get_guard_id(action: &str) -> u32 {
     action.split("#").collect::<Vec<&str>>()
         .get(1).unwrap().split(" ").collect::<Vec<&str>>()
         .get(0).unwrap().parse().unwrap()
@@ -125,9 +125,9 @@ mod tests {
 
     #[test]
     fn getGuardId_test() {
-        assert_eq!(3, getGuardId("Guard #3 begins shift"));
-        assert_eq!(83745, getGuardId("Guard #83745 begins shift"));
-        assert_eq!(238, getGuardId("Guard #238 begins shift"));
-        assert_eq!(0, getGuardId("Guard #0 begins shift"));
+        assert_eq!(3, get_guard_id("Guard #3 begins shift"));
+        assert_eq!(83745, get_guard_id("Guard #83745 begins shift"));
+        assert_eq!(238, get_guard_id("Guard #238 begins shift"));
+        assert_eq!(0, get_guard_id("Guard #0 begins shift"));
     }
 }

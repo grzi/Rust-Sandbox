@@ -69,7 +69,7 @@ fn manhattan_distance(_point1: (i32, i32), _point2: (i32, i32)) -> i32 {
 }
 
 fn read_coords(_line: &str) -> (i32, i32) {
-    let mut line = _line.replace(" ", "");
+    let line = _line.replace(" ", "");
     let split = line.split(",").collect::<Vec<&str>>();
     (split.get(0).unwrap().parse().unwrap(), split.get(1).unwrap().parse().unwrap())
 }
