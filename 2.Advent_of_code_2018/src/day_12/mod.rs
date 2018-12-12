@@ -12,7 +12,7 @@ fn generation( _input : &(String, HashMap<String, String>), _iterations : u64) -
     let mut deltas_repeat = HashMap::new();
 
     for iteration in 1..=_iterations {
-        let mut iter_res = String::from("...");
+        let mut iter_res = String::from("..."); // Peut s'étendre vers la gauche
         for offset in 2..last_generation.len()-2{
             let slice = &last_generation[offset - 2..=offset + 2];
             iter_res += match _input.1.get(&slice.to_string()){
