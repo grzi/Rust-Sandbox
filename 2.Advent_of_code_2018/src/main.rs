@@ -17,6 +17,7 @@ mod day_9;
 mod day_10;
 mod day_11;
 mod day_12;
+mod day_13;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -34,6 +35,7 @@ fn main() {
         "10" => println!("result : {:?}", day_10::execute(read_input_file("src/day_10/input.txt"))),
         "11" => println!("result : {:?}", day_11::execute(2187)),
         "12" => println!("result : {:?}", day_12::execute(read_input_file("src/day_12/input.txt"))),
+        "13" => println!("result : {:?}", day_13::execute(read_input_file("src/day_13/input.txt"))),
         _ => println!("Le numéro du jour est requis")
     }
 }
