@@ -4,7 +4,6 @@ use std::char;
 
 pub fn execute(_input: String) {
     println!("step 1 : {:?}", run(&_input, 3).0);
-    let mut attaq = 4;
     for attaq in 4..{
         let result = run(&_input,attaq);
         let mut dead_elf = false;
