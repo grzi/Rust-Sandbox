@@ -88,7 +88,7 @@ fn read_input(_input: &String) -> (Vec<(Vec<usize>, Vec<usize>, Vec<usize>)>, Ve
     (examples, real_inputs)
 }
 
-fn get_functions() -> HashMap<String, fn(usize, usize, &Vec<usize>) -> usize> {
+pub fn get_functions() -> HashMap<String, fn(usize, usize, &Vec<usize>) -> usize> {
     let mut functions: HashMap<String, fn(usize, usize, &Vec<usize>) -> usize> = HashMap::new();
     functions.insert(String::from("addr"), |a, b, register| register[a] + register[b]);
     functions.insert(String::from("addi"), |a, b, register| register[a] + b);
@@ -103,8 +103,8 @@ fn get_functions() -> HashMap<String, fn(usize, usize, &Vec<usize>) -> usize> {
     functions.insert(String::from("gtir"), |a, b, register| (a > register[b]) as usize);
     functions.insert(String::from("gtri"), |a, b, register| (register[a] > b) as usize);
     functions.insert(String::from("gtrr"), |a, b, register| (register[a] > register[b]) as usize);
-    functions.insert(String::from("egir"), |a, b, register| (a == register[b]) as usize);
-    functions.insert(String::from("egri"), |a, b, register| (register[a] == b) as usize);
-    functions.insert(String::from("egrr"), |a, b, register| (register[a] == register[b]) as usize);
+    functions.insert(String::from("eqir"), |a, b, register| (a == register[b]) as usize);
+    functions.insert(String::from("eqri"), |a, b, register| (register[a] == b) as usize);
+    functions.insert(String::from("eqrr"), |a, b, register| (register[a] == register[b]) as usize);
     functions
 }
